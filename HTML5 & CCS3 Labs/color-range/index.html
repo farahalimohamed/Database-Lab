@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      font-size: 20px;
+    }
+
+    #colorControl {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    #output {
+      margin-top: 60px;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+  </style>
+  <title>Color Range</title>
+</head>
+<body>
+
+  <div id="colorControl">
+    <label for="red">Red:</label>
+    <input type="range" id="red" min="0" max="255" value="0">
+
+    <label for="green">Green:</label>
+    <input type="range" id="green" min="0" max="255" value="0">
+
+    <label for="blue">Blue:</label>
+    <input type="range" id="blue" min="0" max="255" value="0">
+  </div>
+
+  <p id="output">This is a colored paragraph</p>
+
+  <script>
+    const redInput = document.getElementById('red');
+    const greenInput = document.getElementById('green');
+    const blueInput = document.getElementById('blue');
+
+    const outputParagraph = document.getElementById('output');
+
+    function updateColor() {
+      const redValue = redInput.value;
+      const greenValue = greenInput.value;
+      const blueValue = blueInput.value;
+
+      outputParagraph.style.color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+    }
+
+    redInput.addEventListener('input', updateColor);
+    greenInput.addEventListener('input', updateColor);
+    blueInput.addEventListener('input', updateColor);
+
+    updateColor();
+  </script>
+
+</body>
+</html>
