@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Right-Angled Triangle</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    svg {
+      margin-top: 20px;
+    }
+
+    text {
+      padding: 5px;
+    }
+
+    #theorem {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #formula{
+        position: relative;
+        color: red;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    #redLine {
+      position: absolute;
+      left: 49px; /* Adjust as needed based on your layout */
+      top: -1px; /* Adjust as needed based on your layout */
+      width: 105px; /* Adjust as needed based on your layout */
+      height: 0.5px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="20,230 20,20 230,230" fill="red"/>
+    <text x="10" y="235" fill="black">a</text>
+    <text x="15" y="15" fill="black">b</text>
+    <text x="235" y="235" fill="black">c</text>
+  </svg>
+
+  <div id="theorem">
+    <p>According to Pythagoras theorem:</p>
+    <p id="formula">c = <span id="redLine"></span></p>
+  </div>
+
+  <script>
+    // Calculate and display the result
+    const a = 50; // replace with your own values
+    const b = 200; // replace with your own values
+    const c = Math.sqrt(a**2 + b**2);
+
+    // const formulaElement = document.getElementById('formula');
+    // formulaElement.textContent = `c = √(${a}² + ${b}²) = ${c.toFixed(2)}`;
+    const redLine = document.getElementById('redLine');
+    const formulaElement = document.getElementById('formula');
+    formulaElement.innerHTML += `√(${a}² + ${b}²) = ${c.toFixed(2)}`;
+    redLine.style.width = `${formulaElement.clientWidth}px`;
+  </script>
+
+</body>
+</html>
