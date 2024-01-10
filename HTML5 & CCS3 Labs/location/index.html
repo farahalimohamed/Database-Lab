@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation</title>
+    <style>
+        #map {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Geolocation</h1>
+
+<button id="startBtn">Start Watching</button>
+<button id="stopBtn" disabled>Stop Watching</button>
+
+<div id="map"></div>
+
+<script>
+    let watchId;
+    
+    document.getElementById('startBtn').addEventListener('click', startWatching);
+    document.getElementById('stopBtn').addEventListener('click', stopWatching);
+
+    function startWatching() {
+        if ('geolocation' in navigator) {
+            watchId = navigator.geolocation.watchPosition(updateMap, handleError);
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = false;
+        } else {
+            alert('Geolocation is not supported in your browser');
+        }
+    }
+
+    function stopWatching() {
+        if (watchId) {
+            navigator.geolocation.clearWatch(watchId);
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            alert('Geolocation watch cleared.');
+        }
+    }
+
+    function updateMap(position) {
+        const mapElement = document.getElementById('map');
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        const mapUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+        window.open(mapUrl, '_blank', 'width=400,height=400');
+
+        mapElement.innerHTML = `<p>Latitude: ${lat}</p><p>Longitude: ${lon}</p>`;
+    }
+
+    function handleError(error) {
+        console.error('Error getting location:', error.message);
+    }
+</script>
+
+</body>
+</html>
