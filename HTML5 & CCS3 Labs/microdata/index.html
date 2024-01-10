@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microdata</title>
+</head>
+<body>
+
+  <div itemscope itemtype="http://schema.org/Organization">
+
+    <h1 itemprop="name">Organization</h1>
+
+    <p itemprop="telephone">35355695</p>
+
+    <a itemprop="url" href="https://iti.gov.eg/iti/home">url</a>
+
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+
+      <span itemprop="streetAddress">km 28 Cairo-Alexandria</span>
+
+      <span itemprop="addressLocality">Smart Village</span>
+
+      <span itemprop="addressRegion">Giza</span>
+
+      <span itemprop="addressCountry">Egypt</span>
+
+      <span itemprop="postalCode">11371</span>
+    </div>
+
+    <div itemprop="location" itemscope itemtype="http://schema.org/Place">
+        
+        <div itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+         
+          <meta itemprop="latitude" content="31.19286024075545">
+  
+          <meta itemprop="longitude" content="29.90606773808851">
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>
