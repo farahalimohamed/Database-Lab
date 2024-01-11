@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        #cycler {
+            width: 50%;
+            position: relative;
+        }
+
+        #cycler img {
+            z-index: 1;
+            max-width: 50%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #cycler img.active {
+            z-index: 3;
+        }
+
+        #stopButton {
+            margin-top: 270px;
+            background-color: #0473aa;
+            border: none;
+            color: white;
+            padding: 15px 20px 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        /* Task 2 */
+        #image-container {
+            text-align: center;
+        }
+
+        .image-container {
+            display: inline-block;
+            margin: 10px;
+            width: 50%;
+            text-align: center;
+            float: left;
+            width: 30%;
+            padding: 5px;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .image-container img {
+            width: 50%;
+        }
+
+        #text-container {
+            opacity: 0;
+            text-align: center;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #text-container p {
+            /* display: none; */
+            display: block;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+    </style>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        // Task 1
+        var intervalId;
+        function cycleImages() {
+            var $active = $('#cycler .active');
+            var $next = ($active.next().length > 0) ? $active.next() : $('#cycler img:first');
+            $next.css('z-index', 2);
+            $active.fadeOut(500, function () {
+                $active.css('z-index', 1).show().removeClass('active');
+                $next.css('z-index', 3).addClass('active');
+            });
+        }
+
+        $(document).ready(function () {
+            intervalId = setInterval('cycleImages()', 3000);
+        });
+        function stopCycle() {
+            clearInterval(intervalId);
+        }
+
+        // Task 2
+        $(document).ready(function () {
+            // Click event for Image 1
+            $('#image1').click(function () {
+                var textArray = [
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+                ];
+                appendText(textArray, 'image1-text');
+            });
+
+            // Click event for Image 2
+            $('#image2').click(function () {
+                var textArray = [
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+                ];
+                appendText(textArray, 'image2-text');
+            });
+
+            // Click event for Image 3
+            $('#image3').click(function () {
+                var textArray = [
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+                ];
+                appendText(textArray, 'image3-text');
+            });
+
+            // Function to handle appending and fading text
+            function appendText(textArray, textContainerId) {
+                var textContainer = $('#' + textContainerId);
+                textContainer.fadeOut(400, function () {
+                    textContainer.empty();
+                    $.each(textArray, function (index, value) {
+                        textContainer.append('<p style="display: none;">' + value + '</p>');
+                    });
+                    textContainer.find('p').each(function (index) {
+                        $(this).delay(400 * index).fadeIn(400);
+                    });
+                    textContainer.fadeIn(400);
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Task 1</h1>
+    <div id="cycler">
+        <img src="/imgs/img1.jpg" class="active" alt="Image">
+        <img src="/imgs/img2.jpg" alt="Image">
+        <img src="/imgs/img3.jpg" alt="Image">
+    </div>
+    <button id="stopButton" onclick="stopCycle()">Stop</button>
+    <hr>
+    <h1>Task 2</h1>
+
+    <div class="row">
+        <div class="image-container" id="image1">
+            <img src="/imgs/img1.jpg" alt="Image 1">
+            <div id="image1-text" id="image1-text"></div>
+        </div>
+        <div class="image-container" id="image2">
+            <img src="/imgs/img2.jpg" alt="Image 2">
+            <div id="image2-text" id="image2-text"></div>
+        </div>
+        <div class="image-container" id="image3">
+            <img src="/imgs/img3.jpg" alt="Image 3">
+            <div id="image3-text" id="image3-text"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
