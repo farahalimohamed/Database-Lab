@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <script src="./jQuery-P.js"></script>
+    <script src="./jquery-ui.min.js"></script>
+    <style>
+        #product-details{
+            padding: 20px;
+        }
+        #product-details img{
+            width: 320px;
+            height: 300px;
+        }
+        #product-details .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: darkblue;
+        }
+
+        #product-details .info {
+            font-size: 20px;
+            background-color: rgba(201, 210, 249, 0.787);
+            width: 300px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="product-details">
+    </div>
+
+    <script>
+        $(function () {
+            // Function to get the product ID from the URL
+            function getProductIdFromUrl() {
+                var queryString = window.location.search;
+                var urlParams = new URLSearchParams(queryString);
+                return urlParams.get('id');
+            }
+
+            // Function to fetch product details based on the product ID
+            function fetchProductDetails(productId) {
+                // You need to replace this URL with the actual endpoint to fetch product details
+                var productDetailsUrl = "https://dummyjson.com/products/" + productId;
+
+                $.ajax({
+                    url: productDetailsUrl,
+                    success: function (product) {
+                        console.log("Product details received:", product);
+
+                        // Update the product-details div with the fetched details
+                        $("#product-details").html(`
+                            <img src="${product.thumbnail}" alt="Product Image">
+                            <p class="title">${product.title}</p>
+                            <div class="info">Price: $${product.price}</div>
+                            <div class="info">Category: ${product.category}</div>
+                            <div class="info">Description: ${product.description}</div>
+                            <!-- Add more details as needed -->
+                        `);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    },
+                    data: {},
+                });
+            }
+
+            // Get the product ID from the URL
+            var productId = getProductIdFromUrl();
+
+            // Fetch and display product details
+            if (productId) {
+                fetchProductDetails(productId);
+            } else {
+                // Handle the case where no product ID is found in the URL
+                console.log("Product ID not found in the URL");
+                $("#product-details").html("<p>Error: Product ID not found.</p>");
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jQuery-P.js"></script>
+    <script src="./jquery-ui.min.js"></script>
+    <style>
+        .searchBar {
+            padding: 20px;
+        }
+
+        #data {
+            padding: 20px;
+        }
+
+        #data .product-img {
+            width: 320px;
+            height: 300px;
+            padding-top: 20px;
+            cursor: pointer;
+        }
+
+        #data .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: darkblue;
+        }
+
+        #data .info {
+            font-size: 20px;
+            background-color: rgba(201, 210, 249, 0.787);
+            width: 300px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="searchBar">
+        <input type="text" id="search">
+        <button id="search-btn">Search</button>
+    </div>
+    <div id="data">
+    </div>
+    <script>
+        $(function () {
+            var allProducts;
+            function showProducts(products) {
+                $("#data").empty();
+                for (let i = 0; i < products.length; i++) {
+                    var productDiv = $('<div class="product"></div>');
+                    productDiv.append('<img class="product-img" src="' + products[i].thumbnail + '" alt="Product Image" data-product-id="' + products[i].id + '">');
+                    productDiv.append('<p class="title">' + products[i].title + '</p>');
+                    productDiv.append('<div class="info">Price: $' + products[i].price + '</div>');
+                    productDiv.append('<div class="info">Category: ' + products[i].category + '</div>');
+                    $("#data").append(productDiv);;
+                }
+            }
+
+            $.ajax({
+                url: "https://dummyjson.com/products",
+                success: function (res) {
+                    console.log("Data received:", res);
+                    allProducts = res.products;
+                    showProducts(allProducts);
+                },
+                error: function (err) {
+                    console.log(err)
+                },
+                data: {},
+            });
+            $("#search").on("input", function () {
+                var searchInput = $(this).val().trim();
+                if (searchInput === "") {
+                    showProducts(allProducts);
+                }
+                else {
+                    var filteredProducts = allProducts.filter(function (product) {
+                        return product.id === parseInt(searchInput);
+                    });
+                    showProducts(filteredProduct);
+                }
+            })
+
+            $("#search-btn").click(function () {
+                var searchInput = $("#search").val().trim();
+                if (searchInput === "") {
+                    showProducts(allProducts);
+                }
+                else {
+                    var filteredProduct = allProducts.filter(function (product) {
+                        return product.id === parseInt(searchInput);
+                    });
+                    showProducts(filteredProduct);
+                }
+
+            });
+            $("#data").on("click", ".product-img", function () {
+                var productId = $(this).data("product-id");
+                // console.log(productId);
+                // Navigate to another page or show detailed information for the selected product
+                window.location.href = "product-details.html?id=" + productId; // Update the URL or use another method to show details
+            });
+        })
+    </script>
+</body>
+
+</html>
