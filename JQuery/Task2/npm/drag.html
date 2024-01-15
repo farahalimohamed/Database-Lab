@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
+</head>
+<style>
+    #img1{
+        border-radius: 50%;
+    }
+    #draggable { 
+        width: 200px; 
+        height: 250px; 
+        padding: 0.5em; 
+        float: right; 
+        margin: 10px 10px 10px 0; 
+        background-color: orange;
+    }
+    #draggable p{
+        padding-left: 65px;
+        color: rgb(73, 73, 73);
+        font-size: 20px;
+        font-weight: bold;
+    }
+    #droppable { 
+        width: 500px; 
+        height: 500px; 
+        padding: 0.5em; 
+        float: left; 
+        margin: 10px; 
+        background-color: black;
+        border-radius: 50%;
+    }
+    #droppable p{
+        color: white;
+        font-size: 30px;
+        padding-left: 180px;
+        padding-top: 30px;
+    }
+    </style>
+<body>
+    <div id="draggable" class="ui-widget-content">
+        <img src="../images/rabbit.jpg" alt="" id="img1" width="200px" height="200px">
+        <p>Drag me</p>
+    </div>
+    <div id="droppable" class="ui-widget-header">
+        <p>Black hole</p>
+      </div>
+    <script>
+        $("#draggable").draggable({revert:true});
+        $( "#droppable" ).droppable({
+      drop: function( event, ui ) {
+        $( this )
+            $("#draggable").hide("blind", { direction: "vertical" }, 1000);
+      }
+    });
+    </script>
+</body>
+</html>
