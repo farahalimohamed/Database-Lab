@@ -1,0 +1,97 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: 16rem 1fr 16rem;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+            "header header header"
+            "nav content sidebar"
+            "footer footer footer";
+        min-height: 100vh;
+    }
+
+    header {
+        grid-area: header;
+        padding: 2rem;
+        background-color: cornflowerblue;
+        text-align: center;
+        color: white;
+    }
+
+    nav {
+        grid-area: nav;
+        padding: 2rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color: chocolate;
+        text-align: center;
+        color: white;
+    }
+
+    main {
+        grid-row: content;
+        padding: 2rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+        background-color: green;
+        text-align: center;
+        color: white;
+    }
+
+    aside {
+        grid-area: sidebar;
+        padding: 2rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color: chocolate;
+        text-align: center;
+        color: white;
+    }
+
+    footer {
+        grid-area: footer;
+        padding: 2rem;
+        background-color: cornflowerblue;
+        text-align: center;
+        color: white;
+    }
+
+    @media (max-width: 1024px) {
+        .container {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto minmax(5rem, auto) 1fr minmax(5rem, auto) auto;
+            grid-template-areas:
+                "header"
+                "nav"
+                "content"
+                "sidebar"
+                "footer";
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <header>HEADER</header>
+        <nav>SIDENAV</nav>
+        <main>MAIN CONTENT</main>
+        <aside>SIDEBAR</aside>
+        <footer>FOOTER</footer>
+    </div>
+</body>
+
+</html>

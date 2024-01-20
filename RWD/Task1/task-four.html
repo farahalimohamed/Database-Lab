@@ -1,0 +1,99 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: cornflowerblue;
+        /* margin: 0;
+        padding: 0; */
+    }
+
+    .parent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 160vh;
+        min-width: 100vh;
+    }
+
+    .container {
+        display: grid;
+        /* grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr); */
+        grid-template-areas:
+            "rec1 rec2 rec2"
+            "rec1 rec3 rec4"
+            "rec5 rec5 rec4"
+        ;
+        transform: rotate(45deg);
+        width: 50%;
+        height: 800px;
+        gap: 2px;
+    }
+
+    .shape {
+        background-color: rgb(78, 78, 78);
+        transition: background-color 0.5s ease, transform 0.5s ease;
+    }
+
+    .shape-1 {
+        grid-area: rec1;
+        color: white;
+        text-align: center;
+    }
+
+    .shape-2 {
+        grid-area: rec2;
+        color: white;
+        text-align: center;
+    }
+
+    .shape-3 {
+        grid-area: rec3;
+        color: white;
+        text-align: center;
+    }
+
+    .shape-4 {
+        grid-area: rec4;
+        color: white;
+        text-align: center;
+    }
+
+    .shape-5 {
+        grid-area: rec5;
+        color: white;
+        text-align: center;
+    }
+
+    @media screen and (max-width:1200px) and (min-width:993px) {
+
+        .parent {
+            transform: rotate(90deg);
+            transition: background-color 0.5s ease, transform 0.5s ease;
+
+        }
+
+        .shape {
+            background-color: chocolate;
+        }
+    }
+</style>
+
+<body>
+    <div class="parent">
+        <div class="container">
+            <div class="shape shape-1">1</div>
+            <div class="shape shape-2">2</div>
+            <div class="shape shape-3">3</div>
+            <div class="shape shape-4">4</div>
+            <div class="shape shape-5">5</div>
+        </div>
+    </div>
+</body>
+
+</html>
