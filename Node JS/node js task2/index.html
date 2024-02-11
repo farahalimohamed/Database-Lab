@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+    <h1 class="text-center">Car Management</h1>
+
+    <table class="table mt-4" id="carsTable">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>License Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2 class="mt-4">Add Car</h2>
+    <form id="addCarForm">
+        <div class="form-group">
+            <label for="model">Model:</label>
+            <input type="text" class="form-control" id="model" name="model" required>
+        </div>
+        <div class="form-group">
+            <label for="licenseNumber">License Number:</label>
+            <input type="text" class="form-control" id="licenseNumber" name="licenseNumber" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="addCar()">Add Car</button>
+    </form>
+
+    <div id="output" class="mt-4"></div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        const apiUrl = 'http://localhost:3000/cars';
+
+        function getCars() {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => displayCars(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayCars(cars) {
+            const tableBody = document.querySelector('#carsTable tbody');
+            tableBody.innerHTML = '';
+
+            cars.forEach(car => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+          <td>${car.id}</td>
+          <td>${car.model}</td>
+          <td>${car.licenseNumber}</td>
+          <td><button class="btn btn-danger" onclick="deleteCar(${car.id})">Delete</button></td>
+        `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function addCar() {
+            const model = document.getElementById('model').value;
+            const licenseNumber = document.getElementById('licenseNumber').value;
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ model, licenseNumber }),
+            })
+                .then(response => response.json())
+                .then(newCar => {
+                    getCars();
+
+                    document.getElementById('model').value = '';
+                    document.getElementById('licenseNumber').value = '';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function deleteCar(carId) {
+            fetch(`${apiUrl}/${carId}`, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    displayData(data);
+                    getCars();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayData(data) {
+            document.getElementById('output').innerHTML = JSON.stringify(data, null, 2);
+        }
+
+        getCars();
+    </script>
+</body>
+
+</html>
