@@ -1,0 +1,32 @@
+.slider-container {
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+}
+
+.slick-prev,
+.slick-next {
+    font-size: 1.5rem;
+}
+
+.slider-button {
+    margin: 0 10px;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
